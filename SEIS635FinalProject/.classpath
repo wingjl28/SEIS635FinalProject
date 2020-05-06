@@ -8,5 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/wingjl28/Downloads/catalina-jmx-remote.jar"/>
+	<classpathentry kind="lib" path="C:/Users/wingjl28/Downloads/catalina-ws.jar"/>
+	<classpathentry kind="lib" path="C:/Users/wingjl28/Downloads/apache-tomcat-8.5.54.zip"/>
+	<classpathentry kind="lib" path="C:/Users/wingjl28/Downloads/apache-tomcat-8.5.54/apache-tomcat-8.5.54/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -14,6 +14,10 @@ public class Player {
 		this.chipCount = chipCount;
 	}
 	
+	public Player(String playerName) {
+		this.playerName = playerName;
+	}
+
 	public void doubleSkunk() {
 		score = 0;
 		chipCount = chipCount - 4;
@@ -53,5 +57,15 @@ public class Player {
 
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+
+	public void removeChips(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void removeScore(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 }

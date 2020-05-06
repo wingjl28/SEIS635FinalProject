@@ -1,4 +1,3 @@
-
-public enum SkunkType {
-    NONE, SINGLE, SKUNKDUECE, DOUBLE
-}
+	public enum SkunkType {
+	    NONE, SINGLE, SKUNKDUECE, DOUBLE
+	}
