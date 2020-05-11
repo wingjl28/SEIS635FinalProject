@@ -46,6 +46,7 @@ class TestPlayer {
 		assertEquals(playerOne.getGameScore(), 50);
 		assertEquals(playerOne.getTurnScore(), 0);
 	}
+	
 	@Test
 	void double_skunk_test() {
 		Player playerOne = new Player("PlayerOne");
@@ -63,16 +64,16 @@ class TestPlayer {
 
 	@Test
 	void skunk_deuce_test() {
-		Player playerOne = new Player("PlayerOne");
+		Player skunkDeuce = new Player("PlayerOne");
 		//add 50 to player score to test single skunk
-		playerOne.addTurnScore(50);
-		playerOne.addGameScore();
+		skunkDeuce.addTurnScore(50);
+		skunkDeuce.addGameScore();
 		
 		//test double skunk: no change to player game score, 0 turn score, and -2 change to chip count.
-		playerOne.doubleSkunk();
+		skunkDeuce.skunkDeuce();
 		
-		assertEquals(playerOne.getChipCount(), 98);
-		assertEquals(playerOne.getGameScore(), 50);
-		assertEquals(playerOne.getTurnScore(), 0);
+		assertEquals(skunkDeuce.getChipCount(), 98);
+		assertEquals(skunkDeuce.getGameScore(), 50);
+		assertEquals(skunkDeuce.getTurnScore(), 0);
 	}
 }
