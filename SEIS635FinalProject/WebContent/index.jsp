@@ -46,6 +46,7 @@ $(document).ready(function(){
 		
 	});
 	
+	
 	$('#rollButton').click(function(){
 		var button = 2;
 		
