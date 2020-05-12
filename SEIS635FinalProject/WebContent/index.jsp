@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.skunk.counter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,12 @@
 
 <script type = "text/javascript">
 
+
 $(document).ready(function(){
-	$('#calcform').on('keyup keypress change', function(e){
+	
+	$('#startButton').click(function(){
+		
+		var button = 1;
 		var playerOneName = $('#playerOneName').val();
 		var playerTwoName = $('#playerTwoName').val();
 		var playerThreeName = $('#playerThreeName').val();
@@ -19,61 +24,78 @@ $(document).ready(function(){
 		var playerSixName = $('#playerSixName').val();
 		var playerSevenName = $('#playerSevenName').val();
 		var playerEightName = $('#playerEightName').val();
-		var startPlayerText = "";
-
-	
-		if (playerOneName==null ||  playerOneName=="" || playerTwoName==null ||  playerTwoName=="" )
-			{
-			startPlayerText = "Must have at least 2 players to start the game!"
+				
+		$.ajax({
+			type: 'Post',
+			data: {
+				button: button,
+				playerOneName: playerOneName,
+				playerTwoName: playerTwoName,
+				playerThreeName: playerThreeName,
+				playerFourName: playerFourName,
+				playerFiveName: playerFiveName,
+				playerSixName: playerSixName,
+				playerSevenName: playerSevenName,
+				playerEightName: playerEightName
+					},
+			url: 'skunkservlet',
+			success: function(result){
+				$('#calcresult').html(result);
 			}
-
+		});
 		
+	});
+	
+	$('#rollButton').click(function(){
+		var button = 2;
 		
 		$.ajax({
 			type: 'Post',
 			data: {
-					playerOneName: playerOneName,
-					playerTwoName: playerTwoName,
-					playerThreeName: playerThreeName,
-					playerFourName: playerFourName,
-					playerFiveName: playerFiveName,
-					playerSixName: playerSixName,
-					playerSevenName: playerSevenName,
-					playerEightName: playerEightName
+				button: button
 					},
-			url: 'AjaxCalc',
+			url: 'skunkservlet',
 			success: function(result){
 				$('#calcresult').html(result);
-				$('#recommendation').html(downpaymenttext);
-				$('#monthtext').html(monthtext);
-
 			}
 		});
 		
-		} <!-- End else -->
-		
-		
 	});
 	
-	
-	
-	
-	
-	$('#clearbttn').click(function(){
+	$('#skipButton').click(function(){
+		var button = 3;
 		
-		var text = "<h5>Monthly Payment:</h5>$0.00<h5>Total Payment:</h5>$0.00<h5>Total Interest Paid:</h5>$0.00";
 		$.ajax({
+			type: 'Post',
+			data: {
+				button: button
+					},
+			url: 'skunkservlet',
 			success: function(result){
-				$('#calcresult').html(text);
-	    		  $("#creditscoretext").text("");
-	    		  $("#recommendation").text("");
-	    		  $("#monthtext").text("");
+				$('#calcresult').html(result);
 			}
 		});
+		
 	});
 	
+	$('#resetButton').click(function(){
+		var button = 4;
+		
+		$.ajax({
+			type: 'Post',
+			data: {
+				button: button
+					},
+			url: 'skunkservlet',
+			success: function(result){
+				$('#calcresult').html(result);
+			}
+		});
+		
+	});
 	
 });
+
 
 </script>
 
@@ -93,20 +115,6 @@ position: absolute;
 
 }
 
-#calcresult{
-
-width: 47%;
-float: right;
-margin: auto;
-
-color: purple;
-font-size: 40px;
-}
-
-#calcresult h5{
-color: black;
-font-size: 20px;
-}
 
 #calcdiv{
 
@@ -144,6 +152,9 @@ border-radius: 5px;
 </head>
 <body>
 
+
+
+
 <div id = "appdiv">
 <h1>Let's Play Skunk!</h1>
 <div id = "calcdiv">
@@ -151,7 +162,7 @@ border-radius: 5px;
 
 
 
-<form id = "calcform">
+<form id = "calcform" onsubmit="return false;">
 
 <h2>Player Names</h2>
 <input type="text" id = "playerOneName" placeholder ="Player 1 Name...">
@@ -164,30 +175,16 @@ border-radius: 5px;
 <input type="text" id = "playerEightName" placeholder ="Player 8 Name...">
 <br><br>
 <button type = "submit" value = "Start" id="startButton">Start Game!</button>
-
-<h3>Current Player:</h3>
-
 <h3>Choose an Action!</h3>
 <button type = "submit" value = "Roll" id="rollButton">Roll</button>
 <button type = "submit" value = "Skip" id="skipButton">Skip</button>
-
-<h3>Roll Result:</h3>
-
+<div id="calcresult"></div>
 
 
 
 
-<h3>Player Scores</h3>
-<p>Player 1:</p>
-<p>Player 2:</p>
-<p>Player 3:</p>
-<p>Player 4:</p>
-<p>Player 5:</p>
-<p>Player 6:</p>
-<p>Player 7:</p>
-<p>Player 8:</p>
-
-<button type = "reset" value = "Clear" id="clearbttn">Reset</button>
+<br>
+<button type = "reset" value = "Clear" id="resetButton">Reset</button>
 </form>
 </div>
 
