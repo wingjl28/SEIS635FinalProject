@@ -21,6 +21,7 @@ class TestDice {
 		assertEquals(predDice.getLastRoll(), 7);
 		
 	}
+	
 	@Test
 	void test_random_dice() {
 		
