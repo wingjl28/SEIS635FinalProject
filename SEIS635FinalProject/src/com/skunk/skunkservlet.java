@@ -63,12 +63,20 @@ public class skunkservlet extends HttpServlet {
 			}
 			
 			session.setAttribute("game", game);
-			String outputString = "";
+			
+			String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
 			int playerNum = 0;
 			for (int i = 0; i < game.getPlayers().size(); i++) {
 				playerNum++;
-				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore()+"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+				outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
 			}
+			outputString = outputString + "</table>";
+//			String outputString = "";
+//			int playerNum = 0;
+//			for (int i = 0; i < game.getPlayers().size(); i++) {
+//				playerNum++;
+//				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore()+"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+//			}
 			out.print("<p>CURRENT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p>"); 
 			out.print(outputString + "<p>Number of Players:" + game.getNumberOfPlayers());
 		} 
@@ -78,8 +86,7 @@ public class skunkservlet extends HttpServlet {
 			session.setAttribute("game", game);
 			
 			String rollOutput = game.rollTurn();
-			String outputString = "";
-			int playerNum = 0;
+
 
 			out.print("<p>ROLL RESULT: </p><p>" + rollOutput + "</p>");
 			out.print("<p>TURN SCORE: </p><p>" + game.getTurnScore() + "</p>");
@@ -88,10 +95,20 @@ public class skunkservlet extends HttpServlet {
 			}
 			else
 				out.print("<p>CURRENT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p>");
+			
+			String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+			int playerNum = 0;
 			for (int i = 0; i < game.getPlayers().size(); i++) {
 				playerNum++;
-				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore() +"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+				outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
 			}
+			
+//			String outputString = "";
+//			int playerNum = 0;
+//			for (int i = 0; i < game.getPlayers().size(); i++) {
+//				playerNum++;
+//				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore() +"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+//			}
 			out.print(outputString + "<p>Number of Players:" + game.getNumberOfPlayers());
 			out.print("<p>Roll was pressed </p>");
 			
@@ -101,11 +118,18 @@ public class skunkservlet extends HttpServlet {
 		if(action == 3) {
 			session.setAttribute("game", game);
 			game.endTurn();
-			String outputString = "";
+//			String outputString = "";
+//			int playerNum = 0;
+//			for (int i = 0; i < game.getPlayers().size(); i++) {
+//				playerNum++;
+//				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore()+"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+//			}
+			
+			String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
 			int playerNum = 0;
 			for (int i = 0; i < game.getPlayers().size(); i++) {
 				playerNum++;
-				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore()+"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+				outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
 			}
 			
 			out.print("<p>ROLL RESULT: </p><p>"+game.getPreviousPlayer().getPlayerName()+" has skipped their Roll!</p>");
@@ -125,5 +149,21 @@ public class skunkservlet extends HttpServlet {
 			
 	
 	}
+	
+//	public String createTable() {
+//
+//		String returnTable;
+//		session.setAttribute("game", game);
+//		String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+//		int playerNum = 0;
+//		for (int i = 0; i < game.getPlayers().size(); i++) {
+//			playerNum++;
+//			outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr></table>" ;
+//		}
+//		
+//		return returnTable;		
+//	}
+	
+    
 
 }

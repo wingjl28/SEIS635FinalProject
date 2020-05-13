@@ -142,6 +142,15 @@ position: absolute;
 
 }
 
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+  text-align: center;
+}
 
 #calcdiv{
 
