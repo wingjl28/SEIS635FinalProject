@@ -7,13 +7,13 @@ public class Dice
 	private Die die1;
 	private Die die2;
 	
-	Dice() {
+	public Dice() {
 		this.die1 = new Die();
 		this.die2 = new Die();
 		this.roll();
 	}
 
-	Dice(int dieOne, int dieTwo){
+	public Dice(int dieOne, int dieTwo){
 		this.die1 = new Die(dieOne);
 		this.die2 = new Die(dieTwo);
 		this.roll();

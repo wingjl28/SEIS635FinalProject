@@ -9,7 +9,7 @@ public class Turn {
 	private int chipsToKitty;
 	private boolean hasAnotherRoll;
 	
-	Turn (Player player, Dice gameDice) {
+	public Turn (Player player, Dice gameDice) {
 		this.player = player;
 		this.gameDice = gameDice;
 		rollSequence = new ArrayList<Integer>();

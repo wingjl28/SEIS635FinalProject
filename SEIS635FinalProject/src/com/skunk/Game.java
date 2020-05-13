@@ -18,7 +18,7 @@ public class Game {
 	private Turn gameTurn = null;
 	
 	//Take max amount of players, even if they are empty 
-	Game(String playerOneName, String playerTwoName, String playerThreeName, String playerFourName, String playerFiveName, String playerSixName, String playerSevenName, String playerEightName){
+	public Game(String playerOneName, String playerTwoName, String playerThreeName, String playerFourName, String playerFiveName, String playerSixName, String playerSevenName, String playerEightName){
 		
 		Player playerOne = new Player(playerOneName);
 		Player playerTwo = new Player(playerTwoName);

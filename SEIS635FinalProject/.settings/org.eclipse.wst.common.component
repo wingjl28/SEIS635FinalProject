@@ -2,6 +2,7 @@
     <wb-module deploy-name="SEIS635FinalProject">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Test"/>
         <property name="context-root" value="SEIS635FinalProject"/>
         <property name="java-output-path" value="/SEIS635FinalProject/build/classes"/>
     </wb-module>

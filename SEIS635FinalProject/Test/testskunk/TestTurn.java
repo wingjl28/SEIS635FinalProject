@@ -1,10 +1,14 @@
-package com.skunk;
+package testskunk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import com.skunk.Dice;
+import com.skunk.Player;
+import com.skunk.Turn;
 
 class TestTurn {
 

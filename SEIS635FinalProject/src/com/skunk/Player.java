@@ -5,7 +5,7 @@ public class Player {
 	private String playerName;
 	
 	
-	Player(String playerName) {
+	public Player(String playerName) {
 		this.playerName = playerName;
 		this.gameScore = 0;
 		this.chipCount = 100;
