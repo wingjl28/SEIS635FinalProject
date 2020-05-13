@@ -158,5 +158,29 @@ class TestGame {
 		
 	}
 	
+	@Test
+	void test_game_victory() {
+		String playerOne = "PlayerOneName";
+		String playerTwo = "PlayerTwoName";
+		String playerThree = "PlayerThreeName";
+		String playerFour = "PlayerFourName";
+		String playerFive = "PlayerFiveName";
+		String playerSix = "PlayerSixName";
+		String playerSeven = "PlayerSevenName";
+		String playerEight = "PlayerEightName";
+		
+		Game testGame = new Game(playerOne, playerTwo, playerThree, playerFour, playerFive, playerSix, playerSeven, playerEight);
+		
+		testGame.getPlayers().get(0).addScore(99);
+		
+		assertFalse(testGame.checkForVictory());
+		
+		testGame.getPlayers().get(0).addScore(1);
+		
+		assertTrue(testGame.checkForVictory());
+
+		
+	}
+	
 
 }

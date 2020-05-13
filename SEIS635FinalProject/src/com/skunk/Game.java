@@ -47,7 +47,36 @@ public class Game {
 		}
 		
 		this.numberOfPlayers = players.size();
-		this.gameDice = new Dice();	
+		
+	//-----HERE FOR RANDOM VS PREDICTABLE GAME------
+		//----RANDOM GAME--------
+			this.gameDice = new Dice();	
+		//----END RANDOM GAME---------
+			
+		//----ADDING 10 EACH SCORE-----
+			//this.gameDice = new Dice(5,5);
+		//----END ADDING 10 EACH SCORE----
+		
+		//---DOUBLE SKUNK GAME--------
+			//this.gameDice = new Dice(1,1);
+			//this.players.get(0).addScore(50);
+			//this.players.get(1).addScore(20);
+		//----END DOUBLE SKUNK GAME-----
+			
+		//----SINGLE SKUNK GAME----
+			//this.gameDice = new Dice(1,6);
+			//this.players.get(0).addScore(50);
+			//this.players.get(1).addScore(20);
+		//----END SINGLE SKUNK GAME-----
+			
+		//----SKUNK DEUCE GAME---------
+			//this.gameDice = new Dice(1,2);
+			//this.players.get(0).addScore(50);
+			//this.players.get(1).addScore(20);
+		//----END SKUNK DEUCE GAME
+		
+	// ---------END PREDICTABLE/RANDOM GAME MODE---------------------
+			
 		this.currentPlayerIndex = 0;
 		this.currentPlayer = players.get(currentPlayerIndex);
 	}
@@ -91,30 +120,17 @@ public class Game {
 			return gameTurn.getTurnScore();
 	}
 
-	public void startSeries() {
-		//start turn series
-		players.forEach((player) -> {
-			Turn newTurn = new Turn(player, gameDice);
-			//newTurn.processTurns();
-			gameSeries.add(newTurn);
-			kittyCount = kittyCount + newTurn.getChipsToKitty();
-		}); 
-		
-	}
 	
 	public boolean checkForVictory() {
-		players.forEach((player) -> {
-			if (player.getGameScore() > 100 && playersWithScoreOver100.contains(player) == false ) {//
-				playersWithScoreOver100.add(player);
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.players.get(i).getGameScore() >= 100) {
+				this.playersWithScoreOver100.add(this.players.get(i));
+				this.victory = true;
 			}
-		}); 
-		if (playersWithScoreOver100.size() > 0) { 
-			victory = true;
-			return true;
 		}
-		else 
-			return false;
-				
+			
+			return this.victory;
 	}
 	
 	public String getCurrentPlayerName() {
