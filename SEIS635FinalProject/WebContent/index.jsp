@@ -24,60 +24,84 @@ $(document).ready(function(){
 		var playerSixName = $('#playerSixName').val();
 		var playerSevenName = $('#playerSevenName').val();
 		var playerEightName = $('#playerEightName').val();
-				
-		$.ajax({
-			type: 'Post',
-			data: {
-				button: button,
-				playerOneName: playerOneName,
-				playerTwoName: playerTwoName,
-				playerThreeName: playerThreeName,
-				playerFourName: playerFourName,
-				playerFiveName: playerFiveName,
-				playerSixName: playerSixName,
-				playerSevenName: playerSevenName,
-				playerEightName: playerEightName
-					},
-			url: 'skunkservlet',
-			success: function(result){
-				$('#calcresult').html(result);
-			}
-		});
 		
+		if (playerOneName == "" || playerTwoName ==""){
+			$('#turnresult').html(result);
+			$('#scoreboard').html("");
+		}
+		else{
+			$.ajax({
+				type: 'Post',
+				data: {
+					button: button,
+					playerOneName: playerOneName,
+					playerTwoName: playerTwoName,
+					playerThreeName: playerThreeName,
+					playerFourName: playerFourName,
+					playerFiveName: playerFiveName,
+					playerSixName: playerSixName,
+					playerSevenName: playerSevenName,
+					playerEightName: playerEightName
+						},
+				url: 'skunkservlet',
+				success: function(result){
+				
+					$('#scoreboard').html(result);
+					$('#turnresult').html("");
+				}
+			});
+		}
 	});
 	
 	
 	
 	$('#rollButton').click(function(){
 		var button = 2;
+		var playerOneName = $('#playerOneName').val();
+		var playerTwoName = $('#playerTwoName').val();
 		
-		$.ajax({
-			type: 'Post',
-			data: {
-				button: button
-					},
-			url: 'skunkservlet',
-			success: function(result){
-				$('#calcresult').html(result);
-			}
-		});
-		
+		if (playerOneName == "" || playerTwoName ==""){
+			$('#turnresult').html(result);
+			$('#scoreboard').html("");
+		}
+		else{
+			$.ajax({
+				type: 'Post',
+				data: {
+					button: button
+						},
+				url: 'skunkservlet',
+				success: function(result){
+					$('#turnresult').html(result);
+					$('#scoreboard').html("");
+				}
+			});
+		}	
 	});
+	
+	
 	
 	$('#skipButton').click(function(){
 		var button = 3;
+		var playerOneName = $('#playerOneName').val();
+		var playerTwoName = $('#playerTwoName').val();
 		
-		$.ajax({
-			type: 'Post',
-			data: {
-				button: button
-					},
-			url: 'skunkservlet',
-			success: function(result){
-				$('#calcresult').html(result);
-			}
-		});
-		
+		if (playerOneName == "" || playerTwoName ==""){
+			$('#turnresult').html(result);
+			$('#scoreboard').html("");
+		}
+		else{
+			$.ajax({
+				type: 'Post',
+				data: {
+					button: button
+						},
+				url: 'skunkservlet',
+				success: function(result){
+					$('#turnresult').html(result);
+				}
+			});
+		}
 	});
 	
 	$('#resetButton').click(function(){
@@ -90,7 +114,8 @@ $(document).ready(function(){
 					},
 			url: 'skunkservlet',
 			success: function(result){
-				$('#calcresult').html(result);
+				$('#turnresult').html(result);
+				$('#scoreboard').html("");
 			}
 		});
 		
@@ -136,6 +161,10 @@ button {
   font-size: 20px;
 
 }
+p{
+
+color: purple;
+}
 
 #startButton{
  width: 200px;
@@ -167,8 +196,8 @@ border-radius: 5px;
 <form id = "calcform" onsubmit="return false;">
 
 <h2>Player Names</h2>
-<input type="text" id = "playerOneName" placeholder ="Player 1 Name...">
-<input type="text" id = "playerTwoName" placeholder ="Player 2 Name...">
+<input type="text" id = "playerOneName" placeholder ="Player 1 Name..." required>
+<input type="text" id = "playerTwoName" placeholder ="Player 2 Name..." required>
 <input type="text" id = "playerThreeName" placeholder ="Player 3 Name...">
 <input type="text" id = "playerFourName" placeholder ="Player 4 Name...">
 <input type="text" id = "playerFiveName" placeholder ="Player 5 Name...">
@@ -180,7 +209,8 @@ border-radius: 5px;
 <h3>Choose an Action!</h3>
 <button type = "submit" value = "Roll" id="rollButton">Roll</button>
 <button type = "submit" value = "Skip" id="skipButton">Skip</button>
-<div id="calcresult"></div>
+<div id="turnresult"></div>
+<div id="scoreboard"></div>
 
 
 
