@@ -44,21 +44,21 @@ public class Turn {
 		switch (rollResult) {
 		case 1: //singleSkunk, roll changed to 1 based off 2xdie values.
 			player.singleSkunk();
-			rollOutput = "Single Skunk =(";
+			rollOutput = "Single Skunk";
 			this.hasAnotherRoll = false;
 			this.rollSequence.add(rollResult);
 			this.turnScore = 0;
 			break;
 		case 2: //double skunk, as only a 1 for both die can result in a 2 score
 			player.doubleSkunk();
-			rollOutput = "Double Skunk =( =( ";
+			rollOutput = "Double Skunk";
 			this.hasAnotherRoll = false;
 			this.rollSequence.add(rollResult);
 			this.turnScore = 0;
 			break;
 		case 3: //skunk deuce, as only a 1 or 2 for either die can result in a 3 score
 			player.skunkDeuce();
-			rollOutput = "Skunk Deuce! =(";
+			rollOutput = "Skunk Deuce";
 			this.hasAnotherRoll = false;
 			this.rollSequence.add(rollResult);
 			this.turnScore = 0;
