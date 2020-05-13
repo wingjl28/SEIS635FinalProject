@@ -220,7 +220,27 @@ border-radius: 5px;
 <button type = "submit" value = "Skip" id="skipButton">Skip</button>
 <div id="turnresult"></div>
 <div id="scoreboard"></div>
+<div id = "rules">
+<p>DIRECTIONS FOR PLAYING</p>
+<p>
+The object of the game is to accumulate a score of 100 points OR more. A score is made by rolling the dice and combining the the points on the two dice. For example A 4 and a 5 would be 9 points - if the player decides to take another roll of the dice and turns up a 3 and a 5 (8 points), he would then have an accumulated total of 17 points for the two rolls. The player has the privilege of continuing to roll to increase his score or of passing the dice to wait for the next series, thus preventing the possibility of rolling a Skunk penality and losing his score.
+</p>
+<p>PENALTIES:</p>
 
+<ul>
+<li>A skunk (any die roll of 1) in any series voids the score for that series only and draws a penality of 1 chip placed in the KITTY, and a loss of dice.</li>
+
+<li>A skunk and a deuce (any die rolls where 1 and 2 are the die results) voids the score for that series only and draws a penalty of 2 chips placed in the KITTY, and a loss of dice.</li>
+
+<li>TWO skunks (both die are 1) voids the ENTIRE accumulated score and draws a penalty of 4 chips placed in the KITTY, and a loss of dice. The player must again start the score from scratch.</li>
+</ul>
+<p>HOW TO WIN</p>
+<p>
+The first player to accumulate a total of 100 or more points can continue to score as many points over 100 as they believe is needed to win. When they decided to stop, their total score is the GOAL. Each succeeding player receives one more chance to better the goal and end the game.
+
+The winner of each game collects all chips in the KITTY and in addition five chips from each losing player or 10 chips from any player without a score.
+</p>
+</div>
 
 
 
