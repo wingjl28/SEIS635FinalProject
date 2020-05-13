@@ -31,5 +31,7 @@ public class Die
 			
 	}
 
-
+	public void setDieValue(int newValue) {
+		this.lastRoll = newValue;
+	}
 }

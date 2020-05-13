@@ -38,6 +38,12 @@ public class Dice
 	public Die getDie2() {
 		return die2;
 	}
-
+	
+	public void setDie1(int newValue) {
+		this.die1.setDieValue(newValue);
+	}
+	public void setDie2(int newValue) {
+		this.die2.setDieValue(newValue);
+	}
 
 }
