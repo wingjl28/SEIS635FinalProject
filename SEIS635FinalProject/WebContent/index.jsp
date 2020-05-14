@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.skunk.counter" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,6 +152,24 @@ th, td {
   text-align: center;
 }
 
+
+
+#rollresult, #turnscore, #playerresult{
+height: 120px;
+width: 20%;
+float: left;
+text-align: left;
+padding-left: 2px;
+text-align: center;
+ margin-left: 2px;
+ margin-right: 2px;
+ margin-top: 5px;
+ margin-bottom: 5px;
+ font-size: 20px;
+}
+#tableresult{
+clear:left;
+}
 #calcdiv{
 
 width: 100%;
@@ -199,9 +217,6 @@ border-radius: 5px;
 <h1>Let's Play Skunk!</h1>
 <div id = "calcdiv">
 
-
-
-
 <form id = "calcform" onsubmit="return false;">
 
 <h2>Player Names</h2>
@@ -213,13 +228,16 @@ border-radius: 5px;
 <input type="text" id = "playerSixName" placeholder ="Player 6 Name...">
 <input type="text" id = "playerSevenName" placeholder ="Player 7 Name...">
 <input type="text" id = "playerEightName" placeholder ="Player 8 Name...">
+
 <br><br>
 <button type = "submit" value = "Start" id="startButton">Start Game!</button>
 <h3>Choose an Action!</h3>
 <button type = "submit" value = "Roll" id="rollButton">Roll</button>
 <button type = "submit" value = "Skip" id="skipButton">Skip</button>
+
 <div id="turnresult"></div>
 <div id="scoreboard"></div>
+
 <div id = "rules">
 <p>DIRECTIONS FOR PLAYING</p>
 <p>
