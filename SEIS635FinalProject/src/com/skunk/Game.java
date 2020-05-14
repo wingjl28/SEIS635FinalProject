@@ -3,18 +3,27 @@ import java.util.ArrayList;
 
 
 public class Game {
+	
 	private ArrayList<Player> players = new ArrayList<Player>();
-	ArrayList<Player> playersWithScoreOver100 = new ArrayList<Player>();
-	private ArrayList<Turn> gameSeries;
-	private int kittyCount = 0;
+	private ArrayList<Player> playersWithScoreOver100 = new ArrayList<Player>();
+	private ArrayList<Player> playersWithScoreUnder100 = new ArrayList<Player>();
+	private ArrayList<Player> noMoreRolls = new ArrayList<Player>();
+	
 	private Dice gameDice;
-	private boolean victory = false;
+	
 	private int currentPlayerIndex;
 	private int numberOfPlayers;
+	private int kittyCount = 0;
+	
 	private Player currentPlayer;
 	private Player nextPlayer;
 	private Player previousPlayer;
+	private Player winner;
+	
+	private boolean finalTurn = false;
+	private boolean victory = false;
 	private boolean rollAgain = true;
+	
 	private Turn gameTurn = null;
 	
 	//Take max amount of players, even if they are empty 
@@ -50,11 +59,11 @@ public class Game {
 		
 	//-----HERE FOR RANDOM VS PREDICTABLE GAME------
 		//----RANDOM GAME--------
-			this.gameDice = new Dice();	
+			//this.gameDice = new Dice();	
 		//----END RANDOM GAME---------
 			
 		//----ADDING 10 EACH SCORE-----
-			//this.gameDice = new Dice(5,5);
+			this.gameDice = new Dice(5,5);
 		//----END ADDING 10 EACH SCORE----
 		
 		//---DOUBLE SKUNK GAME--------
@@ -104,6 +113,17 @@ public class Game {
 	public void endTurn() {
 		if (gameTurn != null)
 			this.gameTurn.endTurn();
+		if(finalTurn)
+			addFinishedPlayer(this.currentPlayer);
+		if(this.currentPlayer.getGameScore() >= 100 && this.noMoreRolls.contains(this.currentPlayer)==false) {
+			addFinishedPlayer(this.currentPlayer);
+			this.finalTurn = true;
+		}
+	
+		
+		if(this.noMoreRolls.size() >= this.players.size())
+			this.victory = true;
+		
 		this.currentPlayerIndex++;
 		if(this.currentPlayerIndex == players.size())
 			this.currentPlayerIndex =0;
@@ -119,8 +139,18 @@ public class Game {
 		else
 			return gameTurn.getTurnScore();
 	}
-
 	
+	public void addFinishedPlayer(Player player) {
+		this.noMoreRolls.add(player);
+	}
+	
+	public ArrayList<Player> getFinishedPlayers(){	
+		return this.noMoreRolls;
+	}
+	
+	public boolean getVictory() {
+		return this.victory;
+	}
 	public boolean checkForVictory() {
 		
 		for(int i = 0; i < this.players.size(); i++) {
@@ -132,6 +162,25 @@ public class Game {
 			
 			return this.victory;
 	}
+	
+	public Player getWinner(){
+		Player winner = new Player("tempWinner");
+		int winningScore = 0;
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.players.get(i).getGameScore() > winningScore) {
+				winningScore = this.players.get(i).getGameScore();
+				winner = this.players.get(i);
+			}
+		}
+		
+		return winner;
+	}
+	
+	public boolean getFinalTurn() {
+		return this.finalTurn;
+	}
+	
 	
 	public String getCurrentPlayerName() {
 		this.currentPlayer = players.get(currentPlayerIndex);

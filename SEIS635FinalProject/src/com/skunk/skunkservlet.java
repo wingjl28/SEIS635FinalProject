@@ -43,7 +43,7 @@ public class skunkservlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		Game game= (Game) session.getAttribute("game");
-			
+		boolean endGame = false;	
 		int action = Integer.parseInt(request.getParameter("button"));
 
 		if(action == 1) {
@@ -57,62 +57,105 @@ public class skunkservlet extends HttpServlet {
 			String playerSevenName = request.getParameter("playerSevenName");
 			String playerEightName = request.getParameter("playerEightName");
 			
-			if (game == null) {
-				game = new Game(playerOneName, playerTwoName, playerThreeName, playerFourName, playerFiveName, playerSixName, playerSevenName, playerEightName);
-			    session.setAttribute("game", game);
+			if (game != null) {
+				session.invalidate();
+				out.print("<p>The game has been reset!</p>");
 			}
-			
+			game = new Game(playerOneName, playerTwoName, playerThreeName, playerFourName, playerFiveName, playerSixName, playerSevenName, playerEightName);
+
 			session.setAttribute("game", game);
 			
-			String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+			String outputString = "<br><div id = \"tableresult\"><table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
 			int playerNum = 0;
 			for (int i = 0; i < game.getPlayers().size(); i++) {
 				playerNum++;
 				outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
 			}
-			outputString = outputString + "</table>";
-//			String outputString = "";
+			//			String outputString = "";
 //			int playerNum = 0;
 //			for (int i = 0; i < game.getPlayers().size(); i++) {
 //				playerNum++;
 //				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore()+"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
 //			}
-			out.print("<p>CURRENT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p>"); 
-			out.print(outputString + "<p>Number of Players:" + game.getNumberOfPlayers());
-		} 
+			out.print("<br>"+game.getCurrentPlayerName() + " To Start The Game!<br>"); 
+			out.print(outputString + "</table></div>");
+		}//-------END ACTION 1------------------------------ 
+		
+		
 		//Roll button pressed.
 		//This should roll for the current player, and perform necessary actions to that player depending on the result of the roll.
 		if(action == 2) {
 			session.setAttribute("game", game);
 			
-			String rollOutput = game.rollTurn();
-
-
-			out.print("<p>ROLL RESULT: </p><p>" + rollOutput + "</p>");
-			out.print("<p>TURN SCORE: </p><p>" + game.getTurnScore() + "</p>");
-			if(game.rollAgain()==false) {
-				out.print("<p>NEXT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p>");
-			}
-			else
-				out.print("<p>CURRENT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p>");
+			if(game.getFinalTurn() == false) {
 			
-			String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
-			int playerNum = 0;
-			for (int i = 0; i < game.getPlayers().size(); i++) {
-				playerNum++;
-				outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
-			}
+				String rollOutput = game.rollTurn();
+				if(game.rollAgain()==false) {
+					out.print("<div id = \"playerresult\"><p>NEXT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p></div>");
+					rollOutput = game.getPreviousPlayer().getPlayerName()+" has rolled a " + rollOutput;
+				}
+				else
+					out.print("<div id = \"playerresult\"><p>CURRENT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p></div>");
+				out.print("<div id = \"rollresult\"><p>ROLL RESULT: </p><p>" + rollOutput + "</p></div>");
+				out.print("<div id = \"turnscore\"><p>TURN SCORE: </p><p>" + game.getTurnScore() + "</p></div>");
+	
+				
+				String outputString = "<div id = \"tableresult\"><table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+				int playerNum = 0;
+				for (int i = 0; i < game.getPlayers().size(); i++) {
+					playerNum++;
+					outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
+				}
+				
+	//			String outputString = "";
+	//			int playerNum = 0;
+	//			for (int i = 0; i < game.getPlayers().size(); i++) {
+	//				playerNum++;
+	//				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore() +"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
+	//			}
+				out.print(outputString + "</table></div><p></p>");
+				//out.print("<p>Roll was pressed </p>");
+			}//----END check for final turn == FALSE
 			
-//			String outputString = "";
-//			int playerNum = 0;
-//			for (int i = 0; i < game.getPlayers().size(); i++) {
-//				playerNum++;
-//				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore() +"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
-//			}
-			out.print(outputString + "<p>Number of Players:" + game.getNumberOfPlayers());
-			out.print("<p>Roll was pressed </p>");
+			else if(game.getFinalTurn() && game.getVictory()==false) {
+				
+				if(game.getFinishedPlayers().contains(game.getCurrentPlayer()))
+					game.endTurn();		
+				else {
+					String rollOutput = game.rollTurn();
+					if(game.rollAgain()==false) {
+						out.print("<div id = \"playerresult\"><p>NEXT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p></div>");
+						rollOutput = game.getPreviousPlayer().getPlayerName()+" has rolled a " + rollOutput;
+					}
+					else
+						out.print("<div id = \"playerresult\"><p>CURRENT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p></div>");
+					out.print("<div id = \"rollresult\"><p>ROLL RESULT: </p><p>" + rollOutput + "</p></div>");
+					out.print("<div id = \"turnscore\"><p>TURN SCORE: </p><p>" + game.getTurnScore() + "</p></div>");
+		
+				}
+				
+				String outputString = "<div id = \"tableresult\"><table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+				int playerNum = 0;
+				for (int i = 0; i < game.getPlayers().size(); i++) {
+					playerNum++;
+					outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
+				}
+				out.print(outputString + "</table></div>");
+			}//end final turn
 			
-		}
+			else {
+					out.print("<br>"+game.getWinner().getPlayerName() + " WON The Game!<br>"); 
+					String outputString = "<div id = \"tableresult\"><table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+					int playerNum = 0;
+					for (int i = 0; i < game.getPlayers().size(); i++) {
+						playerNum++;
+						outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
+					}
+					out.print(outputString + "</table></div>");
+					
+			}//end victory
+		}//-----------------------END ACTION 2 ---------------------
+		
 		//Skip button pressed
 		//This should do no further action to the current player, wrap up their turn, and move to next player.
 		if(action == 3) {
@@ -125,18 +168,18 @@ public class skunkservlet extends HttpServlet {
 //				outputString = outputString + "<p>Player "+ playerNum +": "+ game.getPlayers().get(i).getPlayerName() + "</p><p>Score: "+game.getPlayers().get(i).getGameScore()+"</p><p>Bank: " +game.getPlayers().get(i).getChipCount()+"</p>" ;
 //			}
 			
-			String outputString = "<table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
+			String outputString = "<div id = \"tableresult\"><table><tr><th>Player Name</th><th>Player Score</th><th>Player Bank</th></tr><tr>";
 			int playerNum = 0;
 			for (int i = 0; i < game.getPlayers().size(); i++) {
 				playerNum++;
 				outputString = outputString + "<td>"+game.getPlayers().get(i).getPlayerName()+"</td><td>"+game.getPlayers().get(i).getGameScore()+"</td><td>"+game.getPlayers().get(i).getChipCount()+"</td></tr>" ;
 			}
+			out.print("<div id = \"playerresult\"><p>NEXT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p></div>");
+			out.print("<div id = \"rollresult\"><p>ROLL RESULT: </p><p>"+game.getPreviousPlayer().getPlayerName()+" has skipped their Roll!</p></div>");
+			out.print("<div id = \"turnscore\"><p>TURN SCORE: </p><p>" + game.getTurnScore() + "</p></div>");
 			
-			out.print("<p>ROLL RESULT: </p><p>"+game.getPreviousPlayer().getPlayerName()+" has skipped their Roll!</p>");
-			out.print("<p>TURN SCORE: </p><p>" + game.getTurnScore() + "</p>");
-			out.print("<p>NEXT PLAYER: </p><p>" + game.getCurrentPlayerName() + "</p>");
-			out.print(outputString + "<p>Number of Players:" + game.getNumberOfPlayers());
-			out.print("<p>Skip was pressed </p>");
+			out.print(outputString + "</table></div><p></p>");
+			//out.print("<p>Skip was pressed </p>");
 			
 		}
 		
@@ -149,6 +192,7 @@ public class skunkservlet extends HttpServlet {
 			
 	
 	}
+	
 	
 //	public String createTable() {
 //
