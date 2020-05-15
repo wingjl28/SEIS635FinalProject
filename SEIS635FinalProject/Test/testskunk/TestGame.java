@@ -131,6 +131,7 @@ class TestGame {
 		testGame.setDieRolls(1, 2);
 		assertTrue(testGame.rollTurn().equals("Skunk Deuce"));
 		assertEquals(testGame.getPlayers().get(2).getGameScore(),10);
+		assertFalse(testGame.rollAgain());
 		
 		
 		assertEquals("PlayerFourName",testGame.getCurrentPlayerName());
@@ -190,17 +191,102 @@ class TestGame {
 		String playerSeven = "PlayerSevenName";
 		String playerEight = "PlayerEightName";
 		
-		Game testGame = new Game(playerOne, playerTwo, playerThree, playerFour, playerFive, playerSix, playerSeven, playerEight);
-		testGame.getPlayers().get(0).addScore(99);
-		testGame.getPlayers().get(1).addScore(109);
-		testGame.getPlayers().get(2).addScore(79);
-		testGame.getPlayers().get(3).addScore(99);
-		testGame.getPlayers().get(4).addScore(109);
-		testGame.getPlayers().get(5).addScore(99);
-		testGame.getPlayers().get(6).addScore(9);
-		testGame.getPlayers().get(7).addScore(119);
+		Game testGame = new Game(true, 5, playerOne, playerTwo, playerThree, playerFour, playerFive, playerSix, playerSeven, playerEight);
+		//player one, 10
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player two, 10
+		assertEquals(testGame.getPreviousPlayer().getPlayerName(),"PlayerOneName");
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player three, 20
+		assertEquals(testGame.getPreviousPlayer().getPlayerName(),"PlayerTwoName");
+		testGame.rollTurn();
+		testGame.rollTurn();
+
+		testGame.endTurn();
+		//player four, 30
+		testGame.rollTurn();
+		assertTrue(testGame.rollAgain());
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player five, 40
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player six 50
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player seven,60
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player eight 70
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player one, 120
+		assertEquals(testGame.getPreviousPlayer().getPlayerName(),"PlayerEightName");
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		//player two, 160
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.rollTurn();
+		testGame.endTurn();
+		
+		
+		assertEquals(testGame.getPlayerScoreOrder().get(0).getGameScore(),160);
+		assertEquals(testGame.getPlayerScoreOrder().get(0).getPlayerName(), "PlayerTwoName");
+		assertEquals(testGame.getPlayerScoreOrder().get(7).getGameScore(), 20);
+		
+		assertEquals(testGame.getFinalTurn(), true);
+		
+		//players 1 and 2
+		assertEquals(testGame.getFinishedPlayers().size(),2);
+		
 		testGame.checkForVictory();
-		assertEquals(testGame.getWinner().getPlayerName(), "PlayerEightName");
+		assertEquals(testGame.getVictory(), true);
+		assertEquals(testGame.getWinner().getPlayerName(), "PlayerTwoName");
+		
 		
 	}
 	

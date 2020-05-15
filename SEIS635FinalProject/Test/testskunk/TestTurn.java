@@ -88,6 +88,12 @@ class TestTurn {
 		expectedSeq.add(1);
 		testPredTurn.roll();
 		assertEquals(testPredTurn.getRollSequence(), expectedSeq);
+		
+		predDice.setDie1(4);
+		predDice.setDie2(1);
+		expectedSeq.add(1);
+		testPredTurn.roll();
+		assertEquals(testPredTurn.getRollSequence(), expectedSeq);
 
 		//double skunk
 		predDice.setDie1(1);
@@ -102,6 +108,8 @@ class TestTurn {
 		expectedSeq.add(3);
 		testPredTurn.roll();
 		assertEquals(testPredTurn.getRollSequence(), expectedSeq);
+		
+
 	
 		
 	}

@@ -83,9 +83,9 @@ public class Turn {
 		this.turnScore = 0;
 	}
 
-	public int getChipsToKitty() {
-		return chipsToKitty;
-	}
+//	public int getChipsToKitty() {
+//		return chipsToKitty;
+//	}
 	
 	public boolean hasAnotherRoll() {
 		return this.hasAnotherRoll;
