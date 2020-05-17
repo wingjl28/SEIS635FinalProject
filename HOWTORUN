@@ -3,4 +3,4 @@ Import project
 Navigate to WebContent -> index.jsp -> Run as... -> Run on Server
 Select Apache Tomcat server
 
-Alternatively, naviagate to AWS EC2 Instance: http://ec2-34-239-126-182.compute-1.amazonaws.com:8080/SEIS635FinalProject/
+Alternatively, navigate to AWS EC2 Instance: http://ec2-34-239-126-182.compute-1.amazonaws.com:8080/SEIS635FinalProject/
