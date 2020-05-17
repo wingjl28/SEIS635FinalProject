@@ -1,5 +1,6 @@
 package com.skunk;
 
+
 public class Dice
 {
 
