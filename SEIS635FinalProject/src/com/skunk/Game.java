@@ -205,6 +205,8 @@ public Game(boolean predictable, int dieValues,  String playerOneName, String pl
 		this.rollAgain = false;
 	}
 	
+	
+	//return turnscore for an individual player's turn
 	public int getTurnScore() {
 		if(gameTurn ==null)
 			return 0;
@@ -212,17 +214,23 @@ public Game(boolean predictable, int dieValues,  String playerOneName, String pl
 			return gameTurn.getTurnScore();
 	}
 	
+	//add a player to the final array to create final turn series for game
 	public void addFinishedPlayer(Player player) {
 		this.noMoreRolls.add(player);
 	}
 	
+	
+	//get players who have had their last turn in the game
 	public ArrayList<Player> getFinishedPlayers(){	
 		return this.noMoreRolls;
 	}
 	
+	//find out if someone has scored over 100
 	public boolean getVictory() {
 		return this.victory;
 	}
+	
+	//check to see if the game should end
 	public boolean checkForVictory() {
 		
 		for(int i = 0; i < this.players.size(); i++) {
@@ -234,6 +242,7 @@ public Game(boolean predictable, int dieValues,  String playerOneName, String pl
 			
 			return this.victory;
 	}
+	
 	
 	public Player getWinner(){
 		Player winner = new Player("tempWinner");
